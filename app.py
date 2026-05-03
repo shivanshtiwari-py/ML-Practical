@@ -9,7 +9,7 @@ app = Flask(__name__, template_folder='.')
 
 # --- CONFIGURATION ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, 'cnn_model.h5')
+MODEL_PATH = os.path.join(BASE_DIR, 'tumor_model.h5')
 # We still need a place to save uploaded images for the prediction to work
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
 
