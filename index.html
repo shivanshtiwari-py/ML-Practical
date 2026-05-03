@@ -3,39 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNN Image Classifier</title>
+    <title>Brain Tumor Classifier</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 50px; }
-        .container { background: #1e1e1e; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        input[type="file"] { margin: 20px 0; }
-        button { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        .result { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; }
-        img { max-width: 300px; border-radius: 10px; margin-bottom: 15px; }
-        .label { font-size: 1.5rem; font-weight: bold; color: #2ecc71; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #121212; 
+            color: white; 
+            text-align: center; 
+            padding: 50px; 
+            margin: 0;
+        }
+        .container { 
+            background: #1e1e1e; 
+            padding: 40px; 
+            border-radius: 20px; 
+            display: inline-block; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7); 
+            border: 1px solid #333;
+            max-width: 500px;
+        }
+        h1 { color: #3498db; margin-bottom: 10px; }
+        p { color: #888; margin-bottom: 30px; }
+        
+        input[type="file"] { 
+            margin: 20px 0; 
+            padding: 10px;
+            background: #2c2c2c;
+            border-radius: 8px;
+            border: 1px dashed #555;
+            cursor: pointer;
+        }
+        
+        button { 
+            background: linear-gradient(135deg, #3498db, #2980b9); 
+            color: white; 
+            border: none; 
+            padding: 12px 30px; 
+            border-radius: 8px; 
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .result { 
+            margin-top: 40px; 
+            padding-top: 25px;
+            border-top: 1px solid #333; 
+            animation: fadeIn 0.5s ease-in;
+        }
+        .label { 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            color: #2ecc71; 
+            text-transform: capitalize;
+            margin-bottom: 5px;
+        }
+        .confidence {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>CNN Classifier</h1>
-        <p>Upload an image to see the prediction</p>
+        <h1>Tumor Classifier</h1>
+        <p>Upload an MRI scan for AI analysis</p>
         
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="file" accept="image/*" required><br>
-            <button type="submit">Predict</button>
+            <button type="submit">Analyze Scan</button>
         </form>
 
-        {% if label %}
+        <!-- The variable names below now match your app.py exactly -->
+        {% if prediction %}
         <div class="result">
-            <img src="{{ user_image }}" alt="Uploaded Image">
-            <div class="label">{{ label }}</div>
-            <p>Confidence: {{ confidence }}</p>
+            <div class="label">{{ prediction }}</div>
+            <div class="confidence">Confidence: {{ confidence }}</div>
         </div>
         {% endif %}
 
-        {% if message %}
-        <p style="color: #e74c3c;">{{ message }}</p>
-        {% endif %}
     </div>
 
 </body>
