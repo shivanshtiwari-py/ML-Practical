@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNN Image Classifier</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 50px; }
+        .container { background: #1e1e1e; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        input[type="file"] { margin: 20px 0; }
+        button { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .result { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; }
+        img { max-width: 300px; border-radius: 10px; margin-bottom: 15px; }
+        .label { font-size: 1.5rem; font-weight: bold; color: #2ecc71; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CNN Classifier</h1>
+        <p>Upload an image to see the prediction</p>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required><br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if label %}
+        <div class="result">
+            <img src="{{ user_image }}" alt="Uploaded Image">
+            <div class="label">{{ label }}</div>
+            <p>Confidence: {{ confidence }}</p>
+        </div>
+        {% endif %}
+
+        {% if message %}
+        <p style="color: #e74c3c;">{{ message }}</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
