@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing import image
 app = Flask(__name__, template_folder='.')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, 'cnn_model.h5')
+MODEL_PATH = os.path.join(BASE_DIR, 'tumor_model.h5')
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
 
 if not os.path.exists(UPLOAD_FOLDER):
@@ -18,13 +18,13 @@ model = load_model(MODEL_PATH)
 
 def predict_label(img_path):
     # CRITICAL: Ensure target_size matches your model's training!
-    img = image.load_img(img_path, target_size=(224, 224)) 
+    img = image.load_img(img_path, target_size=(256, 256)) 
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array /= 255.0
     
     prediction = model.predict(img_array)
-    classes = ['Class_0', 'Class_1', 'Class_2'] # Replace with your actual labels
+    classes = ['glioma', 'meningioma', 'notumor', 'pituitary'] # Replace with your actual labels
     return classes[np.argmax(prediction)], f"{np.max(prediction)*100:.2f}%"
 
 @app.route('/', methods=['GET', 'POST'])
